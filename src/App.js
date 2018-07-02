@@ -2,24 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import MultiplicationExercise from './MultiplicationExercise'
-
-const Timer = () => { return "Timer" }
-const Counter = () => { return "Counter" }
-const Log = () => { return "Log" }
-
-class Exerciser extends Component {
-  render() {
-    return (
-      <div>
-        <Timer />
-        <MultiplicationExercise />
-        <Counter />
-        <Log />
-      </div>
-    )
-  }
-}
+import Exerciser from './Exerciser'
 
 class App extends Component {
   render() {

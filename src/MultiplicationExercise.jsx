@@ -23,8 +23,9 @@ export default class MultiplicationExercise extends Component {
   onChangeAnswer(state) {
     console.log("onChangeAnswer()", state, this.inputRef.value);
     if (this.inputRef.value == this.state.n * this.state.m) {
-      this.reset();
-      this.inputRef.value = '';
+      this.props.onScore()
+      this.reset()
+      this.inputRef.value = ''
     }
   }
 
