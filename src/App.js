@@ -2,52 +2,24 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import MultiplicationExercise from './MultiplicationExercise'
 
-class MultiplicationExercise extends Component {
-  constructor() {
-    super();
-    this.state = {
-      n: this.randomNumber(),
-      m: this.randomNumber()
-    }
-  }
+const Timer = () => { return "Timer" }
+const Counter = () => { return "Counter" }
+const Log = () => { return "Log" }
 
-  randomNumber() {
-    return Math.floor(Math.random() * 7) + 3
-  }
-
-  reset() {
-    this.setState({
-      n: this.randomNumber(),
-      m: this.randomNumber()
-    });
-    console.log("reset()", this.state.n, this.state.m);
-  }
-
-  onChangeAnswer(state) {
-    console.log("onChangeAnswer()", this.state.n, this.state.m, this.inputRef.value);
-    if (this.inputRef.value == this.state.n * this.state.m) {
-      this.reset();
-      this.inputRef.value = '';
-    }
-  }
-
+class Exerciser extends Component {
   render() {
-    console.log("MultiplicationExercice#render");
-
     return (
       <div>
-        {this.state.n} * {this.state.m} =
-        <input ref={r => (this.inputRef = r)}
-               onChange={() => (this.onChangeAnswer(this.state))}
-               className="short-input"
-               autoFocus />
-        <span>--</span>
+        <Timer />
+        <MultiplicationExercise />
+        <Counter />
+        <Log />
       </div>
     )
-
   }
-};
+}
 
 class App extends Component {
   render() {
@@ -61,7 +33,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
 
-        <MultiplicationExercise />
+        <Exerciser />
       </div>
     );
   }
