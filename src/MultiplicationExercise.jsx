@@ -17,11 +17,9 @@ export default class MultiplicationExercise extends Component {
       n: randomNumber(),
       m: randomNumber()
     });
-    console.log("reset()", this.state);
   }
 
   onChangeAnswer(state) {
-    console.log("onChangeAnswer()", state, this.inputRef.value);
     if (this.inputRef.value == this.state.n * this.state.m) {
       this.props.onScore()
       this.reset()
@@ -30,15 +28,12 @@ export default class MultiplicationExercise extends Component {
   }
 
   render() {
-    console.log("MultiplicationExercice#render");
-
     return (
       <div>
         {this.state.n} * {this.state.m} =
-        <input ref={r => (this.inputRef = r)}
-               onChange={() => this.onChangeAnswer(this.state)}
-               className="short-input"
-               autoFocus />
+        <input type="number" autoFocus className="short-input"
+               ref={r => (this.inputRef = r)}
+               onChange={() => this.onChangeAnswer(this.state)} />
       </div>
     )
   }
