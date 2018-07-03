@@ -1,38 +1,34 @@
 import React, { Component } from 'react';
 import Timer from './Timer'
 import MultiplicationExercise from './MultiplicationExercise'
-
-const Stats = (props) => {
-  const secondsEach = Math.round(props.seconds / props.points * 100) / 100
-  return (
-    <div>
-      <p>Time: {props.seconds} seconds</p>
-      <p>Points: {props.points}</p>
-      <p>Average: One solution every {secondsEach} seconds</p>
-      <h4>Log:</h4>
-      <pre>{props.log}</pre>
-    </div>
-  )
-}
+import Stats from './Stats'
 
 const initialState = {
         started: false,
-        seconds: 20,
+        remainingSeconds: 20,
         points: 0,
-        log: '',
-        eventCount: 0
+        log: ''
       }
 
 export default class Exerciser extends Component {
   constructor() {
+    let remainingSecondsAtLatestEvent = initialState.remainingSeconds
+
     super()
     this.state = initialState
 
-    this.onEvent = (log) =>
-      this.setState({log: this.state.log + log + "\n"})
+    this.onEvent = (log) => {
+      const elapsed = initialState.remainingSeconds - this.state.remainingSeconds,
+            solutionTime = remainingSecondsAtLatestEvent - this.state.remainingSeconds
+      this.setState({log: `${this.state.log}${elapsed}" [${solutionTime}"]: ${log}\n`})
+      remainingSecondsAtLatestEvent = this.state.remainingSeconds
+    }
 
     this.onScore = () =>
       this.setState({points: this.state.points + 1})
+
+    this.onTick = (remainingSeconds) =>
+      this.setState({remainingSeconds})
 
     this.onTimeUp = () =>
       this.setState({started: false})
@@ -45,12 +41,14 @@ export default class Exerciser extends Component {
     if (this.state.started) {
       return (
         <div>
-          <Timer seconds={this.state.seconds} onTimeUp={this.onTimeUp} />
+          <Timer seconds={initialState.remainingSeconds}
+                 onTick={this.onTick}
+                 onTimeUp={this.onTimeUp} />
           <MultiplicationExercise onScore={this.onScore}
                                   onEvent={this.onEvent} />
           <Stats points={this.state.points}
                  log={this.state.log}
-                 seconds={this.state.seconds} />
+                 seconds={initialState.remainingSeconds} />
         </div>
       )
     } else if (this.state.points) {
@@ -58,7 +56,7 @@ export default class Exerciser extends Component {
         <div>
           <Stats points={this.state.points}
                  log={this.state.log}
-                 seconds={this.state.seconds} />
+                 seconds={initialState.remainingSeconds} />
           <button autoFocus onClick={this.start}>Restart</button>
         </div>
       )
@@ -68,7 +66,7 @@ export default class Exerciser extends Component {
           <p>
             You'll be asked to multiply two numbers,
             answer as many questions as possible
-            in {this.state.seconds} seconds.
+            in {initialState.remainingSeconds} seconds.
             <br />
             Good luck!
           </p>
