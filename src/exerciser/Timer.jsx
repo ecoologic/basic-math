@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import logo from '../logo.svg';
-import './Timer.css';
+import React, {Component} from 'react'
+import logo from 'logo.svg'
+import 'exerciser/Timer.css'
 
 export default class Timer extends Component {
   constructor(props) {

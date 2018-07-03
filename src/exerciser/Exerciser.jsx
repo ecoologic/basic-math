@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Timer from './Timer'
-import MultiplicationExercise from './MultiplicationExercise'
-import Stats from './Stats'
+import Timer from 'exerciser/Timer'
+import MultiplicationExercise from 'exerciser/MultiplicationExercise'
+import Stats from 'exerciser/Stats'
 
 const initialState = {
         started: false,
