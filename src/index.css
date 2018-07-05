@@ -11,3 +11,7 @@ input {
 .short-input {
   width: 2em;
 }
+
+.green { color: darkgreen; }
+.yellow { color: #B59608; }
+.red { color: darkred; }

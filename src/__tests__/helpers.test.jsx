@@ -6,10 +6,11 @@ import { _onChangeInput, _setState, _math } from 'helpers'
 configure({ adapter: new Adapter() })
 
 class Form extends Component {
-  state = { userName: 'initial', count: 0 }
+  state = { name: 'initial', count: 0, list: [] }
   constructor() {
     super()
-    this.onChange = _onChangeInput(this, 'userName')
+    this.onChange = _onChangeInput(this, 'name')
+    this.onClickPush1 = () => _setState.push(1, this, 'list')
     this.onClickPlus3 = () => _setState.plus(3, this, 'count')
     this.onClickMinus8 = () => _setState.minus(8, this, 'count')
   }
@@ -17,17 +18,30 @@ class Form extends Component {
     return (
       <div>
         <input onChange={this.onChange} />
-        <h1>userName: {this.state.userName}</h1>
+        <h1>Name: {this.state.name}</h1>
 
         <button id="plus3" onClick={this.onClickPlus3}>Plus 3</button>
         <button id="minus8" onClick={this.onClickMinus8}>Minus 8</button>
+        <button id="push1" onClick={this.onClickPush1}>Push 1</button>
         <h2>Count: {this.state.count}</h2>
+        <h3>List {this.state.list}. Length: {this.state.list.length}</h3>
       </div>
     )
   }
 }
 
 describe('_setState', () => {
+  describe('.push()', () => {
+    it('adds an item to the list', () => {
+      const wrapper = shallow(<Form />)
+
+      wrapper.find('#push1').simulate('click')
+      wrapper.find('#push1').simulate('click')
+
+      expect(wrapper.find('h3').text()).toEqual('List 11. Length: 2')
+    })
+  })
+
   describe('.plus()', () => {
     it('adds a number to the property', () => {
       const wrapper = shallow(<Form />)
@@ -47,7 +61,6 @@ describe('_setState', () => {
       expect(wrapper.find('h2').text()).toEqual('Count: -8')
     })
   })
-
 })
 
 describe('_onChangeInput()', () => {
@@ -56,7 +69,7 @@ describe('_onChangeInput()', () => {
 
     wrapper.find('input').simulate('change', { target: { value: 'expected' } })
 
-    expect(wrapper.find('h1').text()).toEqual('userName: expected')
+    expect(wrapper.find('h1').text()).toEqual('Name: expected')
   })
 })
 

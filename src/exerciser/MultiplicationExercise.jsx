@@ -3,8 +3,8 @@ import 'exerciser/MultiplicationExercise.css'
 import { _math, _onChangeInput } from 'helpers'
 
 const newState = () => ({
-  m: _math.random(3, 9),
   n: _math.random(3, 9),
+  m: _math.random(3, 9),
   answer: ''
 })
 
@@ -18,8 +18,7 @@ export default class MultiplicationExercise extends Component {
             n = this.state.n,
             m = this.state.m
       if (answer === n * m) {
-        this.props.onEvent(`${n} x ${m} = ${n * m}`)
-        this.props.onScore()
+        this.props.onScore({ problem: `${n} x ${m}`, solution: n * m, answer })
         this.setState(newState())
       }
     }

@@ -6,11 +6,15 @@ import Stats from 'exerciser/Stats'
 configure({ adapter: new Adapter() })
 
 describe('<Stats />', () => {
-  it('renders the log', () => {
-    const props = {seconds: 20, points: 5, log: "I am the log!"},
-          subject = shallow(<Stats points={props.points} log={props.log} />)
+  it('renders the stats', () => {
+    const props = {
+            seconds: 20,
+            points: 10,
+            exercises: [],
+          },
+          subject = shallow(<Stats {...props} />)
 
-    expect(subject.find('h4').text()).toEqual("Log:")
-    expect(subject.find('pre').text()).toEqual(props.log)
+    expect(subject.find('p').first().text()).toEqual('Time: 20 seconds')
+    expect(subject.find('p').at(1).text()).toEqual('Points: 10')
   })
 })

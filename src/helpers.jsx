@@ -2,6 +2,8 @@ const _onChangeInput = (_this, inputName) =>
   (ev) => _this.setState({ [inputName]: ev.target.value })
 
 const _setState = {
+  push: (item, _this, propName) =>
+    _this.setState({ [propName]: [..._this.state[propName], item] }),
   plus: (n, _this, propName) =>
     _this.setState({ [propName]: _this.state[propName] + n }),
   minus: (n, _this, propName) =>
@@ -15,5 +17,3 @@ const _math = {
 }
 
 export { _onChangeInput, _setState, _math }
-
-// https://github.com/airbnb/javascript/tree/master/react

@@ -1,15 +1,15 @@
 import React from 'react'
+import MultiplicationLog from 'exerciser/MultiplicationLog'
 import { _math } from 'helpers'
 
-const Stats = (props) => {
-  const secondsEach = _math.decimal(props.seconds / props.points)
+const Stats = ({ points, seconds, exercises }) => {
+  const secondsEach = _math.decimal(seconds / points)
   return (
     <div>
-      <p>Time: {props.seconds} seconds</p>
-      <p>Points: {props.points}</p>
+      <p>Time: {seconds} seconds</p>
+      <p>Points: {points}</p>
       <p>Average: One solution every {secondsEach} seconds</p>
-      <h4>Log:</h4>
-      <pre>{props.log}</pre>
+      <MultiplicationLog exercises={exercises} />
     </div>
   )
 }

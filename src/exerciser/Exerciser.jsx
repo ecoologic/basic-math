@@ -1,40 +1,42 @@
 import React, { Component } from 'react'
-import Timer from 'exerciser/Timer'
 import MultiplicationExercise from 'exerciser/MultiplicationExercise'
+import Timer from 'exerciser/Timer'
 import Stats from 'exerciser/Stats'
 import { _setState } from 'helpers'
 
 const initialState = {
-        started: false,
-        remainingSeconds: 20,
-        points: 0,
-        log: ''
-      }
+  started: false,
+  elapsedSeconds: 0,
+  remainingSeconds: 20,
+  latestSolutionSeconds: 0,
+  points: 0,
+  solvedExercises: []
+}
 
 export default class Exerciser extends Component {
   constructor() {
-    let remainingSecondsAtLatestEvent = initialState.remainingSeconds
-
     super()
     this.state = initialState
 
-    this.onEvent = (log) => {
-      const elapsed = initialState.remainingSeconds - this.state.remainingSeconds,
-            solutionTime = remainingSecondsAtLatestEvent - this.state.remainingSeconds
-      _setState.plus(`${elapsed}" [${solutionTime}"]: ${log}\n`, this, 'log');
-      remainingSecondsAtLatestEvent = this.state.remainingSeconds
+    this.start = () =>
+      this.setState(Object.assign(initialState, { started: true }))
+
+    this.onTick = (args) =>
+      this.setState(args)
+
+    this.onScore = (exercise) => {
+      const previousSolutionSeconds = this.state.latestSolutionSeconds, // New name for clarity
+            timedExercise = Object.assign({
+              elapsedSeconds: this.state.elapsedSeconds,
+              answerSeconds: this.state.elapsedSeconds - previousSolutionSeconds,
+            }, exercise)
+      this.setState({ latestSolutionSeconds: this.state.elapsedSeconds })
+      _setState.plus(1, this, 'points')
+      _setState.push(timedExercise, this, 'solvedExercises');
     }
 
-    this.onScore = () => _setState.plus(1, this, 'points')
-
-    this.onTick = (remainingSeconds) =>
-      this.setState({remainingSeconds})
-
     this.onTimeUp = () =>
-      this.setState({started: false})
-
-    this.start = () =>
-      this.setState(Object.assign(initialState, {started: true}))
+      this.setState({ started: false })
   }
 
   render() {
@@ -43,20 +45,22 @@ export default class Exerciser extends Component {
         <div>
           <Timer seconds={initialState.remainingSeconds}
                  onTick={this.onTick}
-                 onTimeUp={this.onTimeUp} />
-          <MultiplicationExercise onScore={this.onScore}
-                                  onEvent={this.onEvent} />
+                 onTimeUp={this.onTimeUp}
+          />
+          <MultiplicationExercise onScore={this.onScore} />
           <Stats points={this.state.points}
-                 log={this.state.log}
-                 seconds={initialState.remainingSeconds} />
+                 exercises={this.state.solvedExercises}
+                 seconds={initialState.remainingSeconds}
+          />
         </div>
       )
     } else if (this.state.points) {
       return (
         <div>
           <Stats points={this.state.points}
-                 log={this.state.log}
-                 seconds={initialState.remainingSeconds} />
+                 exercises={this.state.solvedExercises}
+                 seconds={initialState.remainingSeconds}
+          />
           <button autoFocus onClick={this.start}>Restart</button>
         </div>
       )
