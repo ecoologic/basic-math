@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Timer from 'exerciser/Timer'
 import MultiplicationExercise from 'exerciser/MultiplicationExercise'
 import Stats from 'exerciser/Stats'
+import { _setState } from 'helpers'
 
 const initialState = {
         started: false,
@@ -20,12 +21,11 @@ export default class Exerciser extends Component {
     this.onEvent = (log) => {
       const elapsed = initialState.remainingSeconds - this.state.remainingSeconds,
             solutionTime = remainingSecondsAtLatestEvent - this.state.remainingSeconds
-      this.setState({log: `${this.state.log}${elapsed}" [${solutionTime}"]: ${log}\n`})
+      _setState.plus(`${elapsed}" [${solutionTime}"]: ${log}\n`, this, 'log');
       remainingSecondsAtLatestEvent = this.state.remainingSeconds
     }
 
-    this.onScore = () =>
-      this.setState({points: this.state.points + 1})
+    this.onScore = () => _setState.plus(1, this, 'points')
 
     this.onTick = (remainingSeconds) =>
       this.setState({remainingSeconds})

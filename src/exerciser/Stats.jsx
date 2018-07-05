@@ -1,7 +1,8 @@
-import React from 'react';
+import React from 'react'
+import { _math } from 'helpers'
 
 const Stats = (props) => {
-  const secondsEach = Math.round(props.seconds / props.points * 100) / 100
+  const secondsEach = _math.decimal(props.seconds / props.points)
   return (
     <div>
       <p>Time: {props.seconds} seconds</p>

@@ -1,18 +1,19 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import logo from 'logo.svg'
+import { _setState } from 'helpers'
 import 'exerciser/Timer.css'
 
 export default class Timer extends Component {
   constructor(props) {
     super()
-    this.state = {remainingSeconds: props.seconds}
+    this.state = { remainingSeconds: props.seconds }
   }
 
   componentDidMount() {
     let timer = setInterval(
       () => {
         if (this.state.remainingSeconds > 0) {
-          this.setState({remainingSeconds: this.state.remainingSeconds - 1})
+          _setState.minus(1, this, 'remainingSeconds')
         } else {
           clearInterval(timer)
           this.props.onTimeUp()
