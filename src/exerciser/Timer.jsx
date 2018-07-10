@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import 'exerciser/Timer.css'
 import logo from 'logo.svg'
-import { _setState } from 'helpers'
 import { actions, store } from 'store'
 
 export default class Timer extends Component {
@@ -11,20 +10,22 @@ export default class Timer extends Component {
     this.state = store.getState().timer
   }
   componentDidMount() {
-    let timer = setInterval(
-      () => {
-        if (this.state.remainingSeconds > 0) {
-          // Trigger data change
-          store.dispatch(actions.timer.tick)
+    let timerPeriod = 250,
+        timer = setInterval(
+        () => {
+          if (this.state.remainingSeconds > 0) {
+            store.dispatch({
+              ...actions.timer.tick,
+              payload: { elapsedSeconds: timerPeriod / 1000 } })
 
-          this.setState(store.getState().timer)
-          this.props.onTick(store.getState().timer)
-        } else {
-          clearInterval(timer)
-          this.props.onTimeUp()
-        }
-      },
-      1000)
+            this.setState(store.getState().timer)
+            this.props.onTick(store.getState().timer)
+          } else {
+            clearInterval(timer)
+            this.props.onTimeUp()
+          }
+        },
+        timerPeriod)
   }
 
   render() {
@@ -32,7 +33,7 @@ export default class Timer extends Component {
       return (
         <div>
           <img src={logo} className="Timer-logo" alt="logo" />
-          <p>{this.state.remainingSeconds} Seconds left</p>
+          <p>{Number(this.state.remainingSeconds).toFixed(2)} Seconds left</p>
         </div>
       )
     } else {

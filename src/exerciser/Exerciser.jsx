@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import MultiplicationExercise from 'exerciser/MultiplicationExercise'
 import Timer from 'exerciser/Timer'
 import Stats from 'exerciser/Stats'
-import { _setState } from 'helpers'
-import { reducer, actions, store } from 'store'
+import { store } from 'store'
 
 const initialState = {
   started: false,
@@ -26,16 +25,16 @@ export default class Exerciser extends Component {
       this.setState(args)
 
     this.onScore = (exercise) => {
-      // Read data
-      const previousSolutionSeconds = this.state.latestSolutionSeconds // New name for clarity
-      this.setState({ latestSolutionSeconds: this.state.elapsedSeconds })
-      _setState.plus(1, this, 'points')
-      console.log('Here', { ...store.getState().timer, ...exercise })
-      _setState.push({
+      const timedExercise = {
         ...store.getState().timer,
         ...exercise,
-        answerSeconds: this.state.elapsedSeconds - previousSolutionSeconds
-      }, this, 'solvedExercises');
+        answerSeconds: this.state.elapsedSeconds - this.state.latestSolutionSeconds
+      }
+      this.setState({
+        latestSolutionSeconds: this.state.elapsedSeconds,
+        points: this.state.points + 1,
+        solvedExercises: [...this.state.solvedExercises, timedExercise]
+      })
     }
 
     this.onTimeUp = () =>

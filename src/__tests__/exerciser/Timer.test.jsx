@@ -10,6 +10,6 @@ describe('<Timer />', () => {
     const div = document.createElement('div'),
           subject = mount(<Timer seconds={20} />, div)
 
-    expect(subject.find('p').text()).toEqual("20 Seconds left")
+    expect(subject.find('p').text()).toEqual('20.00 Seconds left')
   })
 })

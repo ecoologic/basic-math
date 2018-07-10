@@ -2,10 +2,8 @@ const _onChangeInput = (_this, inputName) =>
   (ev) => _this.setState({ [inputName]: ev.target.value })
 
 const _setState = {
-  push: (item, _this, propName) => {
-    console.log('push', propName, item)
-    _this.setState({ [propName]: [..._this.state[propName], item] })
-  },
+  push: (item, _this, propName) =>
+    _this.setState({ [propName]: [..._this.state[propName], item] }),
   plus: (n, _this, propName) =>
     _this.setState({ [propName]: _this.state[propName] + n }),
   minus: (n, _this, propName) =>

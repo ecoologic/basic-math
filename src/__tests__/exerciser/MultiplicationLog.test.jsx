@@ -16,6 +16,6 @@ describe('<MultiplicationLog />', () => {
           subject = shallow(<MultiplicationLog exercises={[exercise]} />)
 
     expect(subject.find('h4').text()).toEqual('Log:')
-    expect(subject.find('li').text()).toEqual('4" [2"] 3 x 4 = 12')
+    expect(subject.find('li').text()).toEqual('4.00" [2.00"] 3 x 4 = 12')
   })
 })
