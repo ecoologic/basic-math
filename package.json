@@ -4,6 +4,7 @@
   "private": false,
   "license": "MIT",
   "dependencies": {
+    "material-ui": "^0.20.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1",
@@ -12,8 +13,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "s": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "t": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "devDependencies": {

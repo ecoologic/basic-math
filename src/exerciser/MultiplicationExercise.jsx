@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import 'exerciser/MultiplicationExercise.css'
 import { _math, _onChangeInput } from 'helpers'
 
 const newState = () => ({
@@ -26,7 +25,7 @@ export default class MultiplicationExercise extends Component {
 
   render() {
     return (
-      <div className="MultiplicationExercise">
+      <div className="big">
         {this.state.n} x {this.state.m} =
         <input type="number"
                autoFocus

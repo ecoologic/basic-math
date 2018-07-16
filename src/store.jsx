@@ -1,6 +1,5 @@
 import { createStore } from 'redux';
 
-// Write data
 const reducer = (state, action) => {
   if (action.type === actions.timer.tick.type) {
     return { ...state, timer: {
