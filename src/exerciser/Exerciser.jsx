@@ -3,6 +3,7 @@ import MultiplicationExercise from 'exerciser/MultiplicationExercise'
 import Timer from 'exerciser/Timer'
 import Stats from 'exerciser/Stats'
 import { store } from 'store'
+import { Button } from 'renderHelpers'
 
 const initialState = {
   started: false,
@@ -63,7 +64,7 @@ export default class Exerciser extends Component {
                  exercises={this.state.solvedExercises}
                  seconds={initialState.remainingSeconds}
           />
-          <button autoFocus onClick={this.start}>Restart</button>
+          <Button autoFocus onClick={this.start}>Restart</Button>
         </div>
       )
     } else {
@@ -76,7 +77,7 @@ export default class Exerciser extends Component {
             <br />
             Good luck!
           </p>
-          <button autoFocus onClick={this.start}>Start</button>
+          <Button autoFocus onClick={this.start}>Start</Button>
         </div>
       )
     }

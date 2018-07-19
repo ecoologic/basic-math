@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { _onChangeInput } from 'helpers'
+import { Button } from 'renderHelpers'
 
 export default class Root extends Component {
   state = { name: '' }
@@ -8,28 +9,34 @@ export default class Root extends Component {
     super()
 
     this.onChangeName = _onChangeInput(this, 'name')
+    this.onSubmit = (ev) => {
+      ev.preventDefault()
+      this.setState({ redirect: true })
+    }
   }
   render() {
-    return (
-      <div>
-        <h1>Welcome</h1>
-        <p>This app helps you train in basic math.</p>
-        <form>
-          <label>
-            Your Name:
-            <input autoFocus
-                   required
-                   placeholder="Name"
-                   minLength={1}
-                   onChange={this.onChangeName}
-            />
-          </label>
+    if (this.state.redirect) {
+      return <Redirect to={`/exerciser/${this.state.name}`} />
+    } else {
+      return (
+        <div>
+          <h2>Welcome</h2>
+          <p>This app helps you train in basic math.</p>
+          <form onSubmit={this.onSubmit}>
+            <label>
+              Your Name:
+              <input autoFocus
+                     required
+                     placeholder="Name"
+                     minLength={1}
+                     onChange={this.onChangeName}
+              />
+            </label>
 
-          <Link to={`/exerciser/${this.state.name}`}>
-            <button>Start</button>
-          </Link>
-        </form>
-      </div>
-    )
+            <Button>Start</Button>
+          </form>
+        </div>
+      )
+    }
   }
 }
