@@ -75,6 +75,6 @@ describe('_onChangeInput()', () => {
 
 describe('_math.decimal()', () => {
   it('only keeps 2 decimals', () => {
-    expect(_math.decimal(10/3)).toEqual(3.33)
+    expect(_math.decimal(10 / 3)).toEqual(3.33)
   })
 })

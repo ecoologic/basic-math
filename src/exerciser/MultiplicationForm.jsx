@@ -14,10 +14,13 @@ export default class MultiplicationForm extends Component {
     this.onChangeAnswer = (ev) => {
       _onChangeInput(this, 'answer')(ev)
       const answer = parseInt(ev.target.value, 10),
-            n = this.state.n,
-            m = this.state.m
-      if (answer === n * m) {
-        this.props.onScore({ problem: `${n} x ${m}`, solution: n * m, answer })
+            solution = this.state.n * this.state.m
+      if (answer === solution) {
+        this.props.onScore({
+          problem: `${this.state.n} x ${this.state.m}`,
+          solution,
+          answer
+        })
         this.setState(newState())
       }
     }

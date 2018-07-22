@@ -10,7 +10,7 @@ export default class Timer extends Component {
     this.state = store.getState().timer
   }
   componentDidMount() {
-    let timerPeriod = 250,
+    let timerPeriod = 50,
         timer = setInterval(
         () => {
           if (this.state.remainingSeconds > 0) {
