@@ -1,8 +1,8 @@
 import React from 'react'
 
-const MultiplicationLog = ({ exercises }) => {
+const Log = ({ exercises }) => {
   const colorFor = (seconds) => {
-    if (seconds <= 1) {
+    if (seconds <= 1.5) {
       return 'green'
     } else if (seconds < 3) {
       return 'yellow'
@@ -26,4 +26,4 @@ const MultiplicationLog = ({ exercises }) => {
   )
 }
 
-export default MultiplicationLog;
+export default Log;

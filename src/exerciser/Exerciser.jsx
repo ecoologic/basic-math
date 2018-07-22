@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import MultiplicationExercise from 'exerciser/MultiplicationExercise'
-import AdditionExercise from 'exerciser/AdditionExercise'
+import MultiplicationForm from 'exerciser/MultiplicationForm'
+import AdditionForm from 'exerciser/AdditionForm'
 import Timer from 'exerciser/Timer'
 import Stats from 'exerciser/Stats'
 import { store } from 'store'
@@ -13,7 +13,7 @@ const initialState = {
   latestSolutionSeconds: 0,
   points: 0,
   solvedExercises: [],
-  exercise: () => null
+  form: () => null
 }
 
 export default class Exerciser extends Component {
@@ -21,10 +21,10 @@ export default class Exerciser extends Component {
     super()
     this.state = initialState
 
-    this.start = (exercise) => {
+    this.start = (form) => {
       this.setState({
         ...initialState,
-        exercise,
+        form,
         started: true
       })
     }
@@ -51,7 +51,7 @@ export default class Exerciser extends Component {
   }
 
   render() {
-    const Exercise = this.state.exercise
+    const Form = this.state.form
     if (this.state.started) {
       return (
         <div>
@@ -59,7 +59,7 @@ export default class Exerciser extends Component {
                  onTick={this.onTick}
                  onTimeUp={this.onTimeUp}
           />
-          <Exercise onScore={this.onScore} />
+          <Form onScore={this.onScore} />
           <Stats points={this.state.points}
                  exercises={this.state.solvedExercises}
                  seconds={initialState.remainingSeconds}
@@ -73,10 +73,10 @@ export default class Exerciser extends Component {
                  exercises={this.state.solvedExercises}
                  seconds={initialState.remainingSeconds}
           />
-          <Button onClick={() => this.start(MultiplicationExercise)}>
+          <Button autoFocus onClick={() => this.start(MultiplicationForm)}>
             Multiplication
           </Button>
-          <Button onClick={() => this.start(AdditionExercise)}>
+          <Button onClick={() => this.start(AdditionForm)}>
             Addition
           </Button>
         </div>
@@ -92,10 +92,10 @@ export default class Exerciser extends Component {
             Good luck!
           </p>
 
-          <Button autoFocus onClick={() => this.start(MultiplicationExercise)}>
+          <Button autoFocus onClick={() => this.start(MultiplicationForm)}>
             Multiplication
           </Button>
-          <Button onClick={() => this.start(AdditionExercise)}>
+          <Button onClick={() => this.start(AdditionForm)}>
             Addition
           </Button>
         </div>

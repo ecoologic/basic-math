@@ -7,7 +7,7 @@ const newState = () => ({
   answer: ''
 })
 
-export default class AdditionExercise extends Component {
+export default class AdditionForm extends Component {
   state = newState()
   constructor() {
     super()
