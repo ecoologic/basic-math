@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import MultiplicationExercise from 'exerciser/MultiplicationExercise'
+import AdditionExercise from 'exerciser/AdditionExercise'
 import Timer from 'exerciser/Timer'
 import Stats from 'exerciser/Stats'
 import { store } from 'store'
@@ -8,10 +9,11 @@ import { Button } from 'renderHelpers'
 const initialState = {
   started: false,
   elapsedSeconds: 0,
-  remainingSeconds: 20,
+  remainingSeconds: 5,
   latestSolutionSeconds: 0,
   points: 0,
-  solvedExercises: []
+  solvedExercises: [],
+  exercise: () => null
 }
 
 export default class Exerciser extends Component {
@@ -19,8 +21,13 @@ export default class Exerciser extends Component {
     super()
     this.state = initialState
 
-    this.start = () =>
-      this.setState({ ...initialState, started: true })
+    this.start = (exercise) => {
+      this.setState({
+        ...initialState,
+        exercise,
+        started: true
+      })
+    }
 
     this.onTick = (args) =>
       this.setState(args)
@@ -29,7 +36,8 @@ export default class Exerciser extends Component {
       const timedExercise = {
         ...store.getState().timer,
         ...exercise,
-        answerSeconds: this.state.elapsedSeconds - this.state.latestSolutionSeconds
+        answerSeconds: this.state.elapsedSeconds -
+                       this.state.latestSolutionSeconds
       }
       this.setState({
         latestSolutionSeconds: this.state.elapsedSeconds,
@@ -43,6 +51,7 @@ export default class Exerciser extends Component {
   }
 
   render() {
+    const Exercise = this.state.exercise
     if (this.state.started) {
       return (
         <div>
@@ -50,7 +59,7 @@ export default class Exerciser extends Component {
                  onTick={this.onTick}
                  onTimeUp={this.onTimeUp}
           />
-          <MultiplicationExercise onScore={this.onScore} />
+          <Exercise onScore={this.onScore} />
           <Stats points={this.state.points}
                  exercises={this.state.solvedExercises}
                  seconds={initialState.remainingSeconds}
@@ -64,20 +73,31 @@ export default class Exerciser extends Component {
                  exercises={this.state.solvedExercises}
                  seconds={initialState.remainingSeconds}
           />
-          <Button autoFocus onClick={this.start}>Restart</Button>
+          <Button onClick={() => this.start(MultiplicationExercise)}>
+            Multiplication
+          </Button>
+          <Button onClick={() => this.start(AdditionExercise)}>
+            Addition
+          </Button>
         </div>
       )
     } else {
       return (
         <div>
+          <h2>Exercises</h2>
           <p>
-            You'll be asked to multiply two numbers,
-            answer as many questions as possible
+            Answer as many questions as possible
             in {initialState.remainingSeconds} seconds.
             <br />
             Good luck!
           </p>
-          <Button autoFocus onClick={this.start}>Start</Button>
+
+          <Button autoFocus onClick={() => this.start(MultiplicationExercise)}>
+            Multiplication
+          </Button>
+          <Button onClick={() => this.start(AdditionExercise)}>
+            Addition
+          </Button>
         </div>
       )
     }
