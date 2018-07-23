@@ -1,10 +1,10 @@
 import React from 'react'
 
 const Log = ({ exercises }) => {
-  const colorFor = (seconds) => {
-    if (seconds <= 1.5) {
+  const colorFor = (secondsPerPoint) => {
+    if (secondsPerPoint <= 1.5) {
       return 'green'
-    } else if (seconds < 3) {
+    } else if (secondsPerPoint < 3) {
       return 'yellow'
     } else {
       return 'red'
@@ -15,8 +15,8 @@ const Log = ({ exercises }) => {
     <div>
       <h4>Log:</h4>
       <ol>
-        {exercises.map(({ answerSeconds, elapsedSeconds, problem, answer }, i) =>
-          <li key={i} className={colorFor(answerSeconds)}>
+        {exercises.map(({ answerSeconds, elapsedSeconds, points, problem, answer }, i) =>
+          <li key={i} className={colorFor(answerSeconds / points)}>
             {Number(elapsedSeconds).toFixed(2)}"
             [{Number(answerSeconds).toFixed(2)}"] {problem} = {answer}
           </li>
