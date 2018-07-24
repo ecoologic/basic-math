@@ -3,7 +3,7 @@ import Log from 'exerciser/Log'
 import { _math } from 'helpers'
 
 const Stats = ({ points, seconds, exercises }) => {
-  const secondsEach = _math.decimal(seconds / points)
+  const secondsEach = _math.decimal(seconds / exercises.length)
   return (
     <div>
       <p><b>Time:</b> {seconds} seconds</p>
