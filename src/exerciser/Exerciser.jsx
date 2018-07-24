@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
-import MultiplicationForm from 'exerciser/MultiplicationForm'
-import AdditionForm from 'exerciser/AdditionForm'
+import React, { Component, Fragment } from 'react'
+import Question, {
+  AdditionLogic,
+  MultiplicationLogic
+} from 'exerciser/Question'
 import Timer from 'exerciser/Timer'
 import Stats from 'exerciser/Stats'
 import { store } from 'store'
@@ -13,7 +15,7 @@ const initialState = {
   latestSolutionSeconds: 0,
   points: 0,
   solvedExercises: [],
-  form: () => null
+  logic: () => null
 }
 
 export default class Exerciser extends Component {
@@ -21,10 +23,10 @@ export default class Exerciser extends Component {
     super()
     this.state = initialState
 
-    this.start = (form) => {
+    this.start = (Logic) => {
       this.setState({
         ...initialState,
-        form,
+        Logic,
         started: true
       })
     }
@@ -41,7 +43,7 @@ export default class Exerciser extends Component {
       }
       this.setState({
         latestSolutionSeconds: this.state.elapsedSeconds,
-        points: this.state.points + 1,
+        points: this.state.points + this.state.Logic.points,
         solvedExercises: [...this.state.solvedExercises, timedExercise]
       })
     }
@@ -50,54 +52,76 @@ export default class Exerciser extends Component {
       this.setState({ started: false })
   }
 
+  description() {
+    return (
+      <Fragment>
+        <h2>Exercises</h2>
+        <p>
+          Answer as many questions as possible
+          in {initialState.remainingSeconds} seconds.
+          <br />
+          Good luck!
+        </p>
+      </Fragment>
+    )
+  }
+
+  timer() {
+    return (
+      <Timer seconds={initialState.remainingSeconds}
+             onTick={this.onTick}
+             onTimeUp={this.onTimeUp}
+      />
+    )
+  }
+
+  question() {
+    return <Question Logic={this.state.Logic} onScore={this.onScore} />
+  }
+
+  stats() {
+    return (
+      <Stats points={this.state.points}
+             exercises={this.state.solvedExercises}
+             seconds={initialState.remainingSeconds}
+      />
+    )
+  }
+
+  buttons() {
+    return (
+      <Fragment>
+        <Button autoFocus onClick={() => this.start(MultiplicationLogic)}>
+          Multiplication
+        </Button>
+        <Button onClick={() => this.start(AdditionLogic)}>
+          Addition
+        </Button>
+      </Fragment>
+    )
+  }
+
   render() {
-    const Form = this.state.form
     if (this.state.started) {
       return (
         <div>
-          <Timer seconds={initialState.remainingSeconds}
-                 onTick={this.onTick}
-                 onTimeUp={this.onTimeUp}
-          />
-          <Form onScore={this.onScore} />
-          <Stats points={this.state.points}
-                 exercises={this.state.solvedExercises}
-                 seconds={initialState.remainingSeconds}
-          />
+          {this.timer()}
+          {this.question()}
+          {this.stats()}
         </div>
       )
     } else if (this.state.points) {
       return (
         <div>
-          <Stats points={this.state.points}
-                 exercises={this.state.solvedExercises}
-                 seconds={initialState.remainingSeconds}
-          />
-          <Button autoFocus onClick={() => this.start(MultiplicationForm)}>
-            Multiplication
-          </Button>
-          <Button onClick={() => this.start(AdditionForm)}>
-            Addition
-          </Button>
+          {this.stats()}
+          {this.buttons()}
         </div>
       )
     } else {
       return (
         <div>
-          <h2>Exercises</h2>
-          <p>
-            Answer as many questions as possible
-            in {initialState.remainingSeconds} seconds.
-            <br />
-            Good luck!
-          </p>
-
-          <Button autoFocus onClick={() => this.start(MultiplicationForm)}>
-            Multiplication
-          </Button>
-          <Button onClick={() => this.start(AdditionForm)}>
-            Addition
-          </Button>
+          {this.description()}
+          {this.buttons()}
         </div>
       )
     }
