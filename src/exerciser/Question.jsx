@@ -12,6 +12,15 @@ export class MultiplicationLogic {
   isCorrect(answer) { return answer === this.solution }
 }
 
+export class DivisionLogic {
+  static get points() { return 2 }
+  divisor = _math.random(3, 9)
+  dividend = this.divisor * _math.random(3, 9) // Ensures an integer result
+  get problem() { return `${this.dividend} / ${this.divisor}` }
+  get solution() { return this.dividend / this.divisor }
+  isCorrect(answer) { return answer === this.solution }
+}
+
 export class AdditionLogic {
   static get points() { return 2 }
   state = {

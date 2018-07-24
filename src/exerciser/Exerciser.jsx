@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import Question, {
   AdditionLogic,
-  MultiplicationLogic
+  MultiplicationLogic,
+  DivisionLogic
 } from 'exerciser/Question'
 import Timer from 'exerciser/Timer'
 import Stats from 'exerciser/Stats'
@@ -93,6 +94,9 @@ export default class Exerciser extends Component {
       <Fragment>
         <Button autoFocus onClick={() => this.start(MultiplicationLogic)}>
           Multiplication
+        </Button>
+        <Button onClick={() => this.start(DivisionLogic)}>
+          Division
         </Button>
         <Button onClick={() => this.start(AdditionLogic)}>
           Addition
