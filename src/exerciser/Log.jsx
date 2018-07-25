@@ -11,6 +11,7 @@ const Log = ({ exercises }) => {
     }
   }
 
+  // TODO: Paper
   return (
     <div>
       <h4>Log:</h4>

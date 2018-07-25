@@ -16,4 +16,8 @@ const _math = {
   random: (min, max) => (Math.floor(Math.random() * (max - min + 1)) + min)
 }
 
-export { _onChangeInput, _setState, _math }
+const _array = {
+  random: (items) => items[Math.floor(Math.random() * items.length)]
+}
+
+export { _onChangeInput, _setState, _math, _array }

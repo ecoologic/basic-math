@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react'
 import Question, {
   AdditionLogic,
   MultiplicationLogic,
-  DivisionLogic
+  DivisionLogic,
+  RandomLogic
 } from 'exerciser/Question'
 import Timer from 'exerciser/Timer'
 import Stats from 'exerciser/Stats'
@@ -12,13 +13,16 @@ import { Button } from 'renderHelpers'
 const initialState = {
   started: false,
   elapsedSeconds: 0,
-  remainingSeconds: 20,
+  remainingSeconds: 20, // <== TIMER DURATION IN SECONDS
   latestSolutionSeconds: 0,
   points: 0,
   solvedExercises: [],
   logic: () => null
 }
 
+// TODO: Create <BasicMath />
+// TODO: Extract everything except Timer and Quiz, rename to Game
+// TODO: Use "functional" setState
 export default class Exerciser extends Component {
   constructor() {
     super()
@@ -92,7 +96,10 @@ export default class Exerciser extends Component {
   buttons() {
     return (
       <Fragment>
-        <Button autoFocus onClick={() => this.start(MultiplicationLogic)}>
+        <Button autoFocus onClick={() => this.start(RandomLogic)}>
+          Random
+        </Button>
+        <Button onClick={() => this.start(MultiplicationLogic)}>
           Multiplication
         </Button>
         <Button onClick={() => this.start(DivisionLogic)}>

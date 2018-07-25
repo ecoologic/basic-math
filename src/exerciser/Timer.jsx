@@ -28,7 +28,6 @@ export default class Timer extends Component {
         timerPeriod)
   }
 
-  // TODO: Make it with web assembly!!
   render() {
     if (this.state.remainingSeconds > 0) {
       return (

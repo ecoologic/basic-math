@@ -1,9 +1,13 @@
 import React from 'react'
 import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import Question from 'exerciser/Question'
+import Question, { RandomLogic } from 'exerciser/Question'
+import { _array } from 'helpers'
 
 configure({ adapter: new Adapter() })
+
+jest.unmock('helpers');
+const helpers = require.requireActual('helpers');
 
 describe('<Question />', () => {
   class DummyLogic {
@@ -23,8 +27,7 @@ describe('<Question />', () => {
   })
 
   it('runs onScore when the solution is provided', () => {
-    let ok = false
-    const onScore = () => (ok = true),
+    const onScore = jest.fn(),
           subject = shallow(<Question Logic={DummyLogic} onScore={onScore} />),
           problem = subject.find('div').text(),
           logic = new DummyLogic()
@@ -33,6 +36,22 @@ describe('<Question />', () => {
       'change',
       { target: { value: logic.solution } })
 
-    expect(ok).toBe(true)
+    expect(onScore.mock.calls.length).toBe(1)
+  })
+
+  describe('RandomLogic', () => {
+    it('displays random logics', () => {
+      // _array.random.mockReturnValue(DummyLogic)
+      helpers._array.random = jest.fn(() => DummyLogic)
+
+      const onScore = jest.fn(),
+            subject = shallow(<Question Logic={RandomLogic} onScore={onScore} />),
+            problem = subject.find('div').text()
+
+      subject.find('input').simulate('change', { target: { value: 1 } })
+      subject.find('input').simulate('change', { target: { value: 1 } })
+
+      expect(onScore.mock.calls.length).toEqual(2)
+    })
   })
 })
