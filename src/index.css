@@ -17,6 +17,15 @@ input {
   font-size: 3em;
 }
 
+.x-centered {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.x-fit {
+  width: 20em;
+}
+
 .green { color: darkgreen; }
 .yellow { color: #B59608; }
 .red { color: darkred; }

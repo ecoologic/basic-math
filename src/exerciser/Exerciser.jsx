@@ -13,7 +13,7 @@ import { Button } from 'renderHelpers'
 const initialState = {
   started: false,
   elapsedSeconds: 0,
-  remainingSeconds: 20, // <== TIMER DURATION IN SECONDS
+  remainingSeconds: 5, // <== TIMER DURATION
   latestSolutionSeconds: 0,
   points: 0,
   solvedExercises: [],

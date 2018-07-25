@@ -1,4 +1,5 @@
 import React from 'react'
+import { Paper } from 'renderHelpers'
 
 const Log = ({ exercises }) => {
   const colorFor = (secondsPerPoint) => {
@@ -11,18 +12,19 @@ const Log = ({ exercises }) => {
     }
   }
 
-  // TODO: Paper
   return (
     <div>
       <h4>Log:</h4>
-      <ol>
-        {exercises.map(({ answerSeconds, elapsedSeconds, points, problem, answer }, i) =>
-          <li key={i} className={colorFor(answerSeconds / points)}>
-            {Number(elapsedSeconds).toFixed(2)}"
-            [{Number(answerSeconds).toFixed(2)}"] {problem} = {answer}
-          </li>
-        )}
-      </ol>
+      <Paper className="x-fit x-centered">
+        <ol>
+          {exercises.map(({ answerSeconds, elapsedSeconds, points, problem, answer }, i) =>
+            <li key={i} className={colorFor(answerSeconds / points)}>
+              {Number(elapsedSeconds).toFixed(2)}"
+              [{Number(answerSeconds).toFixed(2)}"] {problem} = {answer}
+            </li>
+          )}
+        </ol>
+      </Paper>
     </div>
   )
 }
