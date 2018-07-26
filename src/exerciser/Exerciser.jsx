@@ -8,7 +8,9 @@ import Question, {
 import Timer from 'exerciser/Timer'
 import Stats from 'exerciser/Stats'
 import { store } from 'store'
+import { _array } from 'helpers'
 import { Button } from 'renderHelpers'
+import Snackbar from '@material-ui/core/Snackbar';
 
 const initialState = {
   started: false,
@@ -21,7 +23,7 @@ const initialState = {
 }
 
 // TODO: Create <BasicMath />
-// TODO: Extract everything except Timer and Quiz, rename to Game
+// TODO: Extract everything except Timer, Quiz and Encouragment, rename to Game
 // TODO: Use "functional" setState
 export default class Exerciser extends Component {
   constructor() {
@@ -49,7 +51,8 @@ export default class Exerciser extends Component {
       this.setState({
         latestSolutionSeconds: this.state.elapsedSeconds,
         points: this.state.points + this.state.Logic.points,
-        solvedExercises: [...this.state.solvedExercises, timedExercise]
+        solvedExercises: [...this.state.solvedExercises, timedExercise],
+        encouragement: _array.random(['Good Job', 'Awesome', 'Flawless', 'Cool', 'Fantastic'])
       })
     }
 
@@ -93,6 +96,20 @@ export default class Exerciser extends Component {
     )
   }
 
+  encouragement() {
+    return (
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        open={this.state.encouragement}
+        autoHideDuration={700}
+        disableWindowBlurListener={true}
+        onClose={() => this.setState({ encouragement: false })}
+        message={`${this.state.encouragement}! ${_array.random(
+          ['😘','😝','😎','😄','✌','👌','👍','💪','☝','🤘','💃','👯'])}`}
+      />
+    )
+  }
+
   buttons() {
     return (
       <Fragment>
@@ -119,6 +136,7 @@ export default class Exerciser extends Component {
           {this.timer()}
           {this.question()}
           {this.stats()}
+          {this.encouragement()}
         </div>
       )
     } else if (this.state.points) {
