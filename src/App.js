@@ -4,8 +4,8 @@ import 'typeface-roboto'
 
 import { BrowserRouter, Route } from 'react-router-dom'
 
-import Root from 'root/Root'
-import Exerciser from 'exerciser/Exerciser'
+import Home from 'Home/Home'
+import BasicMath from 'BasicMath/BasicMath'
 
 const App = () => (
   <BrowserRouter>
@@ -14,8 +14,8 @@ const App = () => (
         <h1 className="App-title">Basic Math</h1>
       </header>
 
-      <Route path="/"                    exact strict component={Root} />
-      <Route path="/exerciser/:userName" exact strict component={Exerciser} />
+      <Route path="/"               exact strict component={Home} />
+      <Route path="/user/:userName" exact strict component={BasicMath} />
     </div>
   </BrowserRouter>
 )

@@ -1,7 +1,7 @@
 import React from 'react'
 import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import Stats from 'exerciser/Stats'
+import Stats from 'BasicMath/Stats'
 
 configure({ adapter: new Adapter() })
 

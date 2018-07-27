@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { _onChangeInput } from 'helpers'
 import { Button } from 'renderHelpers'
 
-export default class Root extends Component {
+export default class Home extends Component {
   state = { name: '' }
   constructor() {
     super()
@@ -16,7 +16,7 @@ export default class Root extends Component {
   }
   render() {
     if (this.state.redirect) {
-      return <Redirect to={`/exerciser/${this.state.name}`} />
+      return <Redirect to={`/user/${this.state.name}`} />
     } else {
       return (
         <div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Log from 'exerciser/Log'
+import Log from 'BasicMath/Log'
 import { _math } from 'helpers'
 
 const Stats = ({ points, seconds, exercises }) => {

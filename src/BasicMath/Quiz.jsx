@@ -53,8 +53,7 @@ export class RandomLogic extends Logic {
   get solution() { return this.logic.solution }
 }
 
-// TODO: rename <Quiz />
-export default class Question extends Component {
+export default class Quiz extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -80,6 +79,7 @@ export default class Question extends Component {
       }
     }
   }
+
   render() {
     return (
       <div className="big">
@@ -94,5 +94,3 @@ export default class Question extends Component {
     )
   }
 }
-
-// TODO: snackbars for gamification

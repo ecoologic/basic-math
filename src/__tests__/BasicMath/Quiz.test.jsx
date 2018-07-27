@@ -1,7 +1,7 @@
 import React from 'react'
 import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import Question, { RandomLogic } from 'exerciser/Question'
+import Quiz, { RandomLogic } from 'BasicMath/Quiz'
 import { _array } from 'helpers'
 
 configure({ adapter: new Adapter() })
@@ -9,7 +9,7 @@ configure({ adapter: new Adapter() })
 jest.unmock('helpers');
 const helpers = require.requireActual('helpers');
 
-describe('<Question />', () => {
+describe('<Quiz />', () => {
   class DummyLogic {
     static get points() { return 3 }
     state = { n: 1 }
@@ -20,7 +20,7 @@ describe('<Question />', () => {
 
   it('renders the form using the given logic', () => {
     const logic = new DummyLogic(),
-          subject = shallow(<Question Logic={DummyLogic} />)
+          subject = shallow(<Quiz Logic={DummyLogic} />)
 
     expect(subject.text()).toBe(`${logic.problem} =`)
     expect(subject.find('input[type="number"]').length).toBe(1)
@@ -28,7 +28,7 @@ describe('<Question />', () => {
 
   it('runs onScore when the solution is provided', () => {
     const onScore = jest.fn(),
-          subject = shallow(<Question Logic={DummyLogic} onScore={onScore} />),
+          subject = shallow(<Quiz Logic={DummyLogic} onScore={onScore} />),
           problem = subject.find('div').text(),
           logic = new DummyLogic()
 
@@ -45,7 +45,7 @@ describe('<Question />', () => {
       helpers._array.random = jest.fn(() => DummyLogic)
 
       const onScore = jest.fn(),
-            subject = shallow(<Question Logic={RandomLogic} onScore={onScore} />),
+            subject = shallow(<Quiz Logic={RandomLogic} onScore={onScore} />),
             problem = subject.find('div').text()
 
       subject.find('input').simulate('change', { target: { value: 1 } })

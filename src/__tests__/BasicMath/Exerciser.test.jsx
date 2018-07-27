@@ -1,21 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Exerciser from 'exerciser/Exerciser'
+import BasicMath from 'BasicMath/BasicMath'
 
 import { configure, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
 configure({ adapter: new Adapter() })
 
-describe('<Exerciser />', () => {
+describe('<BasicMath />', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div')
-    ReactDOM.render(<Exerciser />, div)
+    ReactDOM.render(<BasicMath />, div)
     ReactDOM.unmountComponentAtNode(div)
   })
 
   it('renders the addition form', () => {
-      const subject = mount(<Exerciser />)
+      const subject = mount(<BasicMath />)
 
       subject.find('Button').at(1).simulate('click')
 
