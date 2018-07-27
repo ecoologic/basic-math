@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Quiz from 'BasicMath/Quiz'
-import Timer from 'BasicMath/Timer'
-import Encouragement from 'BasicMath/Encouragement'
+import Quiz from 'Game/Quiz'
+import Timer from 'Game/Timer'
+import Encouragement from 'Game/Encouragement'
 import { store } from 'store'
 
 export default class Game extends Component {
@@ -26,9 +26,9 @@ export default class Game extends Component {
       this.setState({
         latestSolutionSeconds: this.state.elapsedSeconds,
         points: this.state.points + this.state.Logic.points,
-        solvedExercises: [...this.state.solvedExercises, timedExercise],
-        encourage: true
+        solvedExercises: [...this.state.solvedExercises, timedExercise]
       })
+      this.encouragementRef.current.show()
     }
 
     this.onTick = (args) =>
@@ -40,6 +40,8 @@ export default class Game extends Component {
         points: this.state.points
       })
     }
+
+    this.encouragementRef = React.createRef()
   }
 
   render() {
@@ -52,9 +54,7 @@ export default class Game extends Component {
 
         <Quiz Logic={this.state.Logic} onScore={this.onScore} />
 
-        <Encouragement open={this.state.encourage}
-                       onClose={() => this.setState({ encourage: false })}
-        />
+        <Encouragement ref={this.encouragementRef} />
       </div>
     )
   }

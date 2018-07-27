@@ -53,6 +53,7 @@ export class RandomLogic extends Logic {
   get solution() { return this.logic.solution }
 }
 
+
 export default class Quiz extends Component {
   constructor(props) {
     super(props)

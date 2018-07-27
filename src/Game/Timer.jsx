@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import 'BasicMath/Timer.css'
+import 'Game/Timer.css'
 import logo from 'logo.svg'
 import { actions, store } from 'store'
 

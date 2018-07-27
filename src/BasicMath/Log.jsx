@@ -14,7 +14,7 @@ const Log = ({ exercises }) => {
 
   return (
     <div>
-      <h4>Log:</h4>
+      <p><b>Log:</b></p>
       <Paper className="x-fit x-centered">
         <ol>
           {exercises.map(({ answerSeconds, elapsedSeconds, points, problem, answer }, i) =>

@@ -15,7 +15,7 @@ describe('<Log />', () => {
           },
           subject = shallow(<Log exercises={[exercise]} />)
 
-    expect(subject.find('h4').text()).toEqual('Log:')
+    expect(subject.find('b').text()).toEqual('Log:')
     expect(subject.find('li').text()).toEqual('4.00" [2.00"] 3 x 4 = 12')
   })
 })

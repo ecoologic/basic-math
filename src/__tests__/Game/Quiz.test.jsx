@@ -1,7 +1,7 @@
 import React from 'react'
 import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import Quiz, { RandomLogic } from 'BasicMath/Quiz'
+import Quiz, { RandomLogic } from 'Game/Quiz'
 import { _array } from 'helpers'
 
 configure({ adapter: new Adapter() })

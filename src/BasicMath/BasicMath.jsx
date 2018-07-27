@@ -4,9 +4,9 @@ import {
   MultiplicationLogic,
   DivisionLogic,
   RandomLogic
-} from 'BasicMath/Quiz'
+} from 'Game/Quiz'
 import Stats from 'BasicMath/Stats'
-import Game from 'BasicMath/Game'
+import Game from 'Game/Game'
 import { Button } from 'renderHelpers'
 
 // TODO: Use "functional" setState
@@ -49,7 +49,7 @@ export default class BasicMath extends Component {
     )
   }
 
-  render() {
+  render() { /////////////////////////////////////////////////////////////////
     if (this.state.started) {
       return (
         <Game Logic={this.state.Logic}
@@ -57,7 +57,7 @@ export default class BasicMath extends Component {
               seconds={this.state.durationInSeconds}
         />
       )
-    } else if (this.state.points) {
+    } else if (this.state.points) { //////////////////////////////////////////
       return (
         <div>
           <Stats points={this.state.points}
@@ -67,7 +67,7 @@ export default class BasicMath extends Component {
           {this.buttons()}
         </div>
       )
-    } else {
+    } else { /////////////////////////////////////////////////////////////////
       return (
         <div>
           <h2>Exercises</h2>
@@ -81,5 +81,5 @@ export default class BasicMath extends Component {
         </div>
       )
     }
-  }
+  } //////////////////////////////////////////////////////////////////////////
 }
