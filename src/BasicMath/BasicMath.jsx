@@ -9,8 +9,7 @@ import Stats from 'BasicMath/Stats'
 import Game from 'Game/Game'
 import { Button } from 'renderHelpers'
 
-// TODO: Use "functional" setState
-export default class BasicMath extends Component {
+ export default class BasicMath extends Component {
   constructor() {
     super()
     this.state = {

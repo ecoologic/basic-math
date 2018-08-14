@@ -18,7 +18,7 @@ export class MultiplicationLogic extends Logic {
 }
 
 export class DivisionLogic extends Logic {
-  static get points() { return 2 }
+  static get points() { return 3 }
   divisor = _math.random(3, 9)
   dividend = this.divisor * _math.random(3, 9) // Ensures an integer result
   _state = {
@@ -41,6 +41,7 @@ export class AdditionLogic extends Logic {
 }
 
 export class RandomLogic extends Logic {
+  static get points() { return 2 }
   constructor() {
     super()
     const logics = [MultiplicationLogic, DivisionLogic, AdditionLogic],
@@ -48,7 +49,6 @@ export class RandomLogic extends Logic {
     this.logic = new Logic()
     this._state = this.logic.state
   }
-  static get points() { return 2 }
   get problem() { return this.logic.problem }
   get solution() { return this.logic.solution }
 }

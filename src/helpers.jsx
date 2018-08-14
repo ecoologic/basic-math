@@ -3,11 +3,11 @@ const _onChangeInput = (_this, inputName) =>
 
 const _setState = {
   push: (item, _this, propName) =>
-    _this.setState({ [propName]: [..._this.state[propName], item] }),
+    _this.setState(state => ({ [propName]: [...state[propName], item] })),
   plus: (n, _this, propName) =>
-    _this.setState({ [propName]: _this.state[propName] + n }),
+    _this.setState(state => ({ [propName]: state[propName] + n })),
   minus: (n, _this, propName) =>
-    _this.setState({ [propName]: _this.state[propName] - n })
+    _this.setState(state => ({ [propName]: state[propName] - n }))
 }
 
 const _math = {

@@ -15,7 +15,7 @@ describe('<Stats />', () => {
           subject = shallow(<Stats {...props} />)
 
     expect(subject.find('p').first().text()).toEqual('Time: 30 seconds')
-    expect(subject.find('p').at(1).text()).toEqual('Points: 20 👌😄👍😝')
+    expect(subject.find('p').at(1).text()).toEqual('Points: 20 👍😄👌😝✌')
     expect(subject.find('p').at(2).text()).toEqual('Average: One solution every 7.5 seconds')
   })
 })

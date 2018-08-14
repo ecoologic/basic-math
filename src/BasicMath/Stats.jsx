@@ -3,8 +3,11 @@ import Log from 'BasicMath/Log'
 import { _math } from 'helpers'
 
 const Stats = ({ points, seconds, exercises }) => {
+  // https://emojikeyboard.io/?ref=materialui
   const secondsEach = _math.decimal(seconds / exercises.length),
-        feedback = '👌😄👍😝✌😎🤘😘💃👯'.slice(0, parseInt(points / 5, 10) * 2)
+        stars = (parseInt(points / 3, 10)) - 1,
+        allStars = ['👍', '😄', '👌', '😝', '✌', '😎', '🤘', '😘', '💃', '👯', '👽'],
+        feedback = allStars.slice(0, stars)
 
   return (
     <div>

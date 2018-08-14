@@ -23,11 +23,11 @@ export default class Game extends Component {
               answerSeconds: this.state.elapsedSeconds -
                              this.state.latestSolutionSeconds
             }
-      this.setState({
-        latestSolutionSeconds: this.state.elapsedSeconds,
-        points: this.state.points + this.state.Logic.points,
-        solvedExercises: [...this.state.solvedExercises, timedExercise]
-      })
+      this.setState(state => ({
+        latestSolutionSeconds: state.elapsedSeconds,
+        points: state.points + state.Logic.points,
+        solvedExercises: [...state.solvedExercises, timedExercise]
+      }))
       this.encouragementRef.current.show()
     }
 
