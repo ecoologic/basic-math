@@ -16,17 +16,19 @@ export default class Game extends Component {
       Logic: props.Logic
     }
 
-    this.onScore = (exercise) => {
-      const timedExercise = {
-              ...store.getState().timer,
-              ...exercise,
-              answerSeconds: this.state.elapsedSeconds -
-                             this.state.latestSolutionSeconds
-            }
+    this.onScore = exercise => {
       this.setState(state => ({
         latestSolutionSeconds: state.elapsedSeconds,
-        points: state.points + state.Logic.points,
-        solvedExercises: [...state.solvedExercises, timedExercise]
+        points: state.points + exercise.points,
+        solvedExercises: [
+          ...state.solvedExercises,
+          {
+            ...exercise,
+            ...store.getState().timer,
+            answerSeconds: state.elapsedSeconds -
+                           state.latestSolutionSeconds
+          }
+        ]
       }))
       this.encouragementRef.current.show()
     }

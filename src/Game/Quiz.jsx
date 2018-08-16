@@ -8,40 +8,39 @@ class Logic {
 }
 
 export class MultiplicationLogic extends Logic {
-  static get points() { return 1 }
   _state = {
     n: _math.random(3, 9),
     m: _math.random(3, 9)
   }
+  get points() { return 1 }
   get problem() { return `${this.state.n} x ${this.state.m}` }
   get solution() { return this.state.n * this.state.m }
 }
 
 export class DivisionLogic extends Logic {
-  static get points() { return 3 }
   divisor = _math.random(3, 9)
   dividend = this.divisor * _math.random(3, 9) // Ensures an integer result
   _state = {
     n: this.dividend,
     m: this.divisor
   }
+  get points() { return 3 }
   get problem() { return `${this.dividend} / ${this.divisor}` }
   get solution() { return this.dividend / this.divisor }
 }
 
 export class AdditionLogic extends Logic {
-  static get points() { return 2 }
   _state = {
     n: _math.random(3, 9),
     m: _math.random(3, 9),
     o: _math.random(3, 9)
   }
+  get points() { return 2 }
   get problem() { return `${this.state.n} + ${this.state.m} + ${this.state.o}` }
   get solution() { return this.state.n + this.state.m + this.state.o }
 }
 
 export class RandomLogic extends Logic {
-  static get points() { return 2 }
   constructor() {
     super()
     const logics = [MultiplicationLogic, DivisionLogic, AdditionLogic],
@@ -49,6 +48,7 @@ export class RandomLogic extends Logic {
     this.logic = new Logic()
     this._state = this.logic.state
   }
+  get points() { return this.logic.points }
   get problem() { return this.logic.problem }
   get solution() { return this.logic.solution }
 }
@@ -68,7 +68,7 @@ export default class Quiz extends Component {
       const answer = parseInt(ev.target.value, 10)
       if (this.state.logic.isCorrect(answer)) {
         props.onScore({
-          points: props.Logic.points,
+          points: this.state.logic.points,
           problem: this.state.logic.problem,
           solution: this.state.logic.solution,
           answer,
